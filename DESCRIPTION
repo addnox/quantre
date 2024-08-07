@@ -1,0 +1,15 @@
+Package: quantre
+Title: An R toolkit for quantitative analysis in reinsurance
+Version: 0.0.0.9000
+Authors@R: 
+    person("Charles", "Pan", , "addnox@gmail.com", role = c("aut", "cre"))
+Description: `quantre` is an R toolkit designed to accelerate modeling, pricing and risk-management process in reinsurance transactions
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    data.table
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
