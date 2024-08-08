@@ -9,9 +9,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Imports: 
-    anytime,
-    data.table
+    data.table,
+    stringi
 Suggests: 
+    anytime,
+    stringdist,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://github.com/addnox/quantre

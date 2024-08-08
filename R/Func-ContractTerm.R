@@ -238,7 +238,7 @@ get_term <- function(x) {
 parse_XL <- function(x = NULL, Limit = Inf, Deductible = 0, AAL = Inf, AAD = 0, Reinstatement = NA_character_, Premium = 0) {
   if (is.character(x)) {
     xx <- stringi::stri_split_regex(x, "x|xs", case_insensitive = TRUE)
-    x1 <- data.table::transpose(lapply(xx, parse_numeric))
+    x1 <- data.table::transpose(lapply(xx, stri_numeric_parse))
     data.table::setDT(x1)
     .name <- c("Limit", "Deductible", "AAD")
     data.table::setnames(x1, seq_along(x1), .name[seq_along(x1)])
@@ -287,7 +287,7 @@ parse_reinstatement <- function(reinstat) {
   re2 <- stringi::stri_replace_all_fixed(re2, "free", "0", case_insensitive = TRUE)
   re2 <- stringi::stri_replace_all_fixed(re2, "unlimited", "Inf", case_insensitive = TRUE)
 
-  reinstat_split <- unlist(stringi::stri_split_regex(re2, "[,;]")) |> stringi::stri_split_fixed("@") |> data.table::transpose() |> lapply(parse_numeric)
+  reinstat_split <- unlist(stringi::stri_split_regex(re2, "[,;]")) |> stringi::stri_split_fixed("@") |> data.table::transpose() |> lapply(stri_numeric_parse)
 
   if ((length(reinstat_split[[1]]) == 1) && (is.infinite(reinstat_split[[1]]) | reinstat_split[[1]] == 0)) {
     res <- data.table::data.table(
