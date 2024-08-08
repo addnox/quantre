@@ -15,3 +15,6 @@ Suggests:
 Config/testthat/edition: 3
 URL: https://github.com/addnox/quantre
 BugReports: https://github.com/addnox/quantre/issues
+Depends: 
+    R (>= 2.10)
+LazyData: true

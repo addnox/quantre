@@ -40,3 +40,27 @@ dots_list <- function(...) {
   dots
 }
 
+format_Numeric <- function(x, style = c("vector", "range", "dim"), decimal = 0) {
+  style <- match.arg(style)
+
+  if (is.null(x)) {
+    res <- "NULL"
+  } else {
+    if (style == "vector") {
+      x1 <- format(round(x, decimal), nsmall = decimal) |> paste(collapse = " ")
+    } else if (style == "range") {
+      x1 <- format(round(range(x), decimal), nsmall = decimal) |> paste(collapse = " ")
+    } else if (style == "dim") {
+      if (is.null(dim(x))) {
+        dimX <- c(length(x), 1)
+      } else {
+        dimX <- dim(x)
+      }
+      x1 <- paste(dimX, collapse = "x")
+    }
+
+    res <- paste0("[", x1, "]")
+  }
+
+  res
+}
