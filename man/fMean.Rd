@@ -3,12 +3,68 @@
 \name{fMean}
 \alias{fMean}
 \alias{fMean.default}
+\alias{fSD}
+\alias{fSD.default}
+\alias{fPerc}
+\alias{fPerc.default}
+\alias{fVaR}
+\alias{fVaR.default}
+\alias{fTVaR}
+\alias{fTVaR.default}
+\alias{fMin}
+\alias{fMin.default}
+\alias{fMax}
+\alias{fMax.default}
+\alias{fScale}
+\alias{fScale.default}
 \title{Generic function for mean}
 \usage{
 fMean(x, ...)
 
 \method{fMean}{default}(x, na.rm = TRUE)
+
+fSD(x, ...)
+
+\method{fSD}{default}(x, na.rm = TRUE)
+
+fPerc(x, ...)
+
+\method{fPerc}{default}(x, q)
+
+fVaR(x, ...)
+
+\method{fVaR}{default}(x, prob)
+
+fTVaR(x, ...)
+
+\method{fTVaR}{default}(x, prob)
+
+fMin(x, ...)
+
+\method{fMin}{default}(x, na.rm = TRUE)
+
+fMax(x, ...)
+
+\method{fMax}{default}(x, na.rm = TRUE)
+
+fScale(x, ...)
+
+\method{fScale}{default}(x, k = 1)
 }
 \description{
 Generic function for mean
+
+Generic function for standard deviation
+
+Generic function for percentile (i.e. inverse of Value at Risk)
+
+Generic function for Value at Risk (i.e. quantile)
+
+Generic function for Tail Value at Risk (a.k.a Conditional Tail Expectation, or CTE)
+
+Generic function for minimum
+
+Generic function for maximum
+
+Generic function for scaling
 }
