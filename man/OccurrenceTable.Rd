@@ -8,7 +8,8 @@ OccurrenceTable(
   x,
   Realization = "Realization",
   OccurrenceId = "OccurrenceId",
-  EventId = "EventId"
+  EventId = "EventId",
+  Value = NULL
 )
 }
 \description{
@@ -17,13 +18,15 @@ Occurrence Table
 \examples{
 set.seed(123)
 DT <- data.table::CJ(Year = 1:100000, OccId = 1:2, EventId = NA)[, `:=`(x = runif(200000), y = runif(200000))]
-YOT <- OccurrenceTable(DT, "Year", "OccId", "EventId")
-fMean(YOT)
-fMean(YOT, "OEP")
-fSD(YOT)
-fPerc(YOT, c(1.000291, 1.550170, 1.859187))
-fVaR(YOT, c(.5, .9, .99), "AEP")
-fVaR(YOT, c(.5, .9, .99), "OEP")
-fTVaR(YOT, c(.5, .9, .99))
-fMax(YOT)
+OccTbl <- OccurrenceTable(DT, "Year", "OccId", "EventId")
+OEPTbl <- EP(OccTbl, "OEP")
+fMean(OccTbl)
+fMean(OccTbl, "OEP")
+fMean(OEPTbl)
+fSD(OccTbl)
+fPerc(OccTbl, c(1.000291, 1.550170, 1.859187))
+fVaR(OccTbl, c(.5, .9, .99), "AEP")
+fVaR(OccTbl, c(.5, .9, .99), "OEP")
+fTVaR(OccTbl, c(.5, .9, .99))
+fMax(OccTbl)
 }

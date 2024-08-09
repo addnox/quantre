@@ -34,3 +34,18 @@ test_that("OccTable: OEP",{
   expect_near(OEP_TVaR[, 2], c(9744836.695, 9872741.13, 9974254.21))
   expect_near(OEP_TVaR[, 3], c(4872646.23, 4937231.68, 4987490.13))
 })
+
+test_that("RealizationTable: OEP",{
+  loss2 <- EP(loss, "OEP")
+  expect_near(unlist(fMean(loss2)), c(6668481.47, 3328692.14))
+  expect_near(unlist(fSD(loss2)), c(2358014.19,	1179520.18), rel = .005)
+  expect_near(unlist(fMax(loss2)), c(9999988.42, 4999981.93))
+
+  OEP_VaR <- fVaR(loss2, c(.9, .95, .99))
+  expect_near(OEP_VaR[, 2], c(9485601.54, 9743960.23, 9949738.25))
+  expect_near(OEP_VaR[, 3], c(4741229.44, 4874246.03, 4974794.67))
+
+  OEP_TVaR <- fTVaR(loss2, c(.9, .95, .99))
+  expect_near(OEP_TVaR[, 2], c(9744836.695, 9872741.13, 9974254.21))
+  expect_near(OEP_TVaR[, 3], c(4872646.23, 4937231.68, 4987490.13))
+})
