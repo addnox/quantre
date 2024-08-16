@@ -11,3 +11,9 @@ test_that("parse date", {
     anytime::anydate(c(20210103, 20191231, 20220102, 20230101, NA), tz = "")
   )
 })
+
+test_that("format number", {
+  x <- c(1.23e12, 3.45e7, -6.78e5, Inf, NA)
+  expect_equal(num(x, "M", digits = 1), c("1,230,000.0M", "34.5M", "-0.7M", "Inf", "N/A"))
+  expect_equal(num(x, "B", inf.label = "Unlimited", na.label = ""), c("1,230.00B", "0.03B", "0.00B", "Unlimited", ""))
+})
