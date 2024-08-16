@@ -9,10 +9,12 @@
 #' fScale(rp, c(3, 2, 0))
 #' @export
 RiskProfile <- function(x, ...) {
-  RP <- field_map(x, ...) |>
+  x <- data.table::as.data.table(x)
+
+  field_map(x, ...) |>
      field_check(required_field = c("N", "TSI", "Premium"))
 
-   structure(RP, class = c("RiskProfile", class(RP)))
+   structure(x, class = c("RiskProfile", class(x)))
 }
 
 #' @export

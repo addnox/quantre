@@ -12,5 +12,5 @@ Work on fields of a \code{data.frame}
 \examples{
 DT <- data.frame(A = 1:3, B = LETTERS[5:7])
 data.table::copy(DT) |> field_map(Num = "A", Char = "B")
-data.table::copy(DT) |> field_map(c(Num = "A", Char = "B")) |> field_check("Char")
+data.table::copy(DT) |> field_map(c(Num = "A", Char = "B")) |> field_check("Char") |> field_fill(c("X", "Y"))
 }

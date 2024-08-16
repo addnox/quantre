@@ -1,5 +1,5 @@
 Package: quantre
-Title: An R toolkit for quantitative analysis in reinsurance
+Title: An R toolkit for Quantitative Analysis in Reinsurance
 Version: 0.0.0.9000
 Authors@R: 
     person("Charles", "Pan", , "addnox@gmail.com", role = c("aut", "cre"))

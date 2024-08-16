@@ -4,7 +4,7 @@
 \name{quantre-package}
 \alias{quantre}
 \alias{quantre-package}
-\title{quantre: An R toolkit for quantitative analysis in reinsurance}
+\title{quantre: An R toolkit for Quantitative Analysis in Reinsurance}
 \description{
 `quantre` is an R toolkit designed to accelerate modeling, pricing and risk-management process in reinsurance transactions
 }

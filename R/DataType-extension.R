@@ -2,10 +2,10 @@
 #' @examples
 #' DT <- data.frame(A = 1:3, B = LETTERS[5:7])
 #' data.table::copy(DT) |> field_map(Num = "A", Char = "B")
-#' data.table::copy(DT) |> field_map(c(Num = "A", Char = "B")) |> field_check("Char")
+#' data.table::copy(DT) |> field_map(c(Num = "A", Char = "B")) |> field_check("Char") |> field_fill(c("X", "Y"))
 field_map <- function(x, ...) {
   if (!is.data.frame(x)) stop("`x` must be a data.frame.", call. = FALSE)
-  x <- data.table::as.data.table(x)
+  data.table::setDT(x)
   dots <- unlist(dots_list(...))
   if (!is.null(dots)) data.table::setnames(x, unname(dots), names(dots), skip_absent = TRUE)
   x
@@ -19,6 +19,17 @@ field_check <- function(x, required_field = character()) {
   }
 
   x
+}
+
+field_fill <- function(x, vars, fill = NA_real_) {
+  x <- data.table::setDT(x)
+
+  nm <- names(vars)
+  for (v in vars) {
+    if (!v %in% nm) data.table::set(x, j = v, value = fill)
+  }
+
+  x[]
 }
 
 #' Work on `...`

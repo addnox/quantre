@@ -58,7 +58,6 @@ RealizationTable <- function(x, Realization = "Realization", Value = NULL) {
   x <- data.table::as.data.table(x)
 
   # fill NA with 0
-  Value <- substitute(Value)
   if (is.null(Value)) {
     if (data.table::haskey(x)) {
       keys <- data.table::key(x)
@@ -66,8 +65,6 @@ RealizationTable <- function(x, Realization = "Realization", Value = NULL) {
     } else {
       Value <- setdiff(x[, names(.SD), .SDcols = is.numeric], c(Realization, "Realization", "OccurrenceId", "EventId"))
     }
-  } else {
-    Value <- eval(substitute(x[, names(.SD), .SD = .v], env = list(.v = Value)))
   }
 
   # names/keys
