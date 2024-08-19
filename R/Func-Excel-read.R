@@ -1,8 +1,8 @@
 #' DT version of read_excel
 #'
 #' @export
-readxl <- function(wb, ws = NULL, rows = NULL, cols = NULL, range = NULL, col_names = TRUE, col_types = NULL, ...) {
-  res <- readxl_raw(wb, ws, rows, cols, range, col_names, col_types, ...)
+readxl <- function(wb, ws = NULL, range = NULL, rows = NULL, cols = NULL, col_names = TRUE, col_types = NULL, ...) {
+  res <- readxl_raw(wb, ws, range, rows, cols, col_names, col_types, ...)
   res
 }
 
@@ -10,7 +10,7 @@ readxl <- function(wb, ws = NULL, rows = NULL, cols = NULL, range = NULL, col_na
 #'
 #' @export
 #' @rdname readxl
-readxl_raw <- function(wb, ws = NULL, rows = NULL, cols = NULL, range = NULL, col_names = FALSE, col_types = "text", alpha_type_cols = FALSE, ...) {
+readxl_raw <- function(wb, ws = NULL, range = NULL, rows = NULL, cols = NULL, col_names = FALSE, col_types = "text", alpha_type_cols = FALSE, ...) {
   if (is.null(range) & is.null(rows) & is.null(cols)) range <- readxl::cell_limits(c(1L, 1L))
   if (is.null(ws)) ws <- 1L
 
@@ -168,25 +168,5 @@ xlrange_offset <- function(range, offset = c(0, 0), size = dim(rng)) {
   res$ul <- rng$ul + offset
   res$lr <- res$ul + size - c(1L, 1L)
 
-  res
-}
-
-#'@export
-readxl_current_region <- function(wb, ws, range, ...) {
-  if (inherits(range, "cell_limits")) {
-    rng <- range
-  } else if (is.character(range) && length(range) == 1) {
-    rng <- xlrange(range)
-  }
-
-  rng_ul <- rng$ul
-  tmp_rows <- readxl_vector(wb, ws, readxl::cell_limits(rng_ul, c(NA, rng_ul[2])))
-  tmp_cols <- readxl_vector(wb, ws, readxl::cell_limits(rng_ul, c(rng_ul[1], NA)))
-
-  pos_before_na <- function(x) Position(is.na, x, nomatch = length(x) + 1) - 1
-  rng_size <- c(pos_before_na(tmp_rows), pos_before_na(tmp_cols))
-
-  res <- readxl::read_excel(wb, ws, xlrange_offset(readxl::cell_limits(rng_ul, rng_ul), size = rng_size), ...)
-  data.table::setDT(res)
   res
 }

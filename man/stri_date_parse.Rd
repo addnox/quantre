@@ -10,6 +10,6 @@ stri_date_parse(x)
 Parse a character vector to Date
 }
 \examples{
-x <- c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1")
+x <- c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1", "43466", NA)
 stri_date_parse(x)
 }

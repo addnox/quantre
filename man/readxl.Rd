@@ -9,9 +9,9 @@
 readxl(
   wb,
   ws = NULL,
+  range = NULL,
   rows = NULL,
   cols = NULL,
-  range = NULL,
   col_names = TRUE,
   col_types = NULL,
   ...
@@ -20,9 +20,9 @@ readxl(
 readxl_raw(
   wb,
   ws = NULL,
+  range = NULL,
   rows = NULL,
   cols = NULL,
-  range = NULL,
   col_names = FALSE,
   col_types = "text",
   alpha_type_cols = FALSE,

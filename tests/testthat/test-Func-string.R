@@ -7,8 +7,8 @@ test_that("parse numbers", {
 
 test_that("parse date", {
   expect_equal(
-    stri_date_parse(c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1", NA)),
-    anytime::anydate(c(20210103, 20191231, 20220102, 20230101, NA), tz = "")
+    stri_date_parse(c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1", "43466", NA)),
+    anytime::anydate(c(20210103, 20191231, 20220102, 20230101, 20190101, NA), tz = "")
   )
 })
 

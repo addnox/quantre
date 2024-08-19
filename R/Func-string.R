@@ -21,18 +21,17 @@ stri_numeric_parse <- function(x, na = c("", "NA", "N/A")) {
 #' Parse a character vector to Date
 #' @export
 #' @examples
-#' x <- c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1")
+#' x <- c("2021-01-03", "12-31-2019", "Jan 2 2022", "2023/1/1", "43466", NA)
 #' stri_date_parse(x)
 stri_date_parse <- function(x) {
   if (!requireNamespace("anytime", quietly = TRUE)) {
     stop("Package \"anytime\" must be installed to use this function.", call. = FALSE)
   }
-  x <- trimws(x)
-  res <- data.table::fifelse(
-    grepl("\\d{5}", x),
-    as.Date(x, origin = "1899-12-30"),
-    anytime::anydate(x)
-  )
+
+  res <- as.Date(rep(NA, length(x)))
+  idx_excel <- grepl("^\\d{5}$", x)
+  res[idx_excel] <- as.Date(as.numeric(x[idx_excel]), origin = "1899-12-30")
+  res[!idx_excel] <- anytime::anydate(x[!idx_excel])
 
   res
 }
