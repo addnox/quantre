@@ -11,7 +11,7 @@ readxl <- function(wb, ws = NULL, range = NULL, rows = NULL, cols = NULL, col_na
 #' @export
 #' @rdname readxl
 readxl_raw <- function(wb, ws = NULL, range = NULL, rows = NULL, cols = NULL, col_names = FALSE, col_types = "text", alpha_type_cols = FALSE, ...) {
-  if (is.null(range) & is.null(rows) & is.null(cols)) range <- readxl::cell_limits(c(1L, 1L))
+  # if (is.null(range) & is.null(rows) & is.null(cols)) range <- readxl::cell_limits(c(1L, 1L))
   if (is.null(ws)) ws <- 1L
 
   rng <- xlrange(range, rows, cols)
@@ -142,7 +142,9 @@ readxl_vector <- function(wb, ws = NULL, range, data_type = c("text", "date", "n
 #'xlrange(rows = 2:5, cols = c(9, NA))
 xlrange <- function(range = NULL, rows = NULL, cols = NULL, ws = NULL) {
   if (!is.null(range)) {
-    stdRng <- readxl:::standardise_limits(range) + 1
+    stdRng <- readxl:::standardise_limits(range)
+    stdRng[stdRng == -1] <- NA
+    stdRng <- stdRng + 1
     rng_byrow <- readxl::cell_rows(stdRng[1:2])
     rng_bycol <- readxl::cell_cols(stdRng[3:4])
   } else {

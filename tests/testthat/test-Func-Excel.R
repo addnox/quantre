@@ -110,3 +110,11 @@ test_that("Read in vector", {
   ## horizontal vector: char
   expect_equal(readxl_vector(file, ws, "N2:Q2"), exp_vChar)
 })
+
+test_that("Read in entire sheet", {
+  exp1 <- data.table(X = LETTERS[1:3], Y = 1:3, Z = 4:6)
+  expect_equal(readxl(file, "EntireSheet"), exp1)
+
+  exp2 <- rbind(data.table(V1 = "X", V2 = "Y", V3 = "Z"), exp1, use.names = FALSE)
+  expect_equal(readxl_raw(file, "EntireSheet"), exp2)
+})

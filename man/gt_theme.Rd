@@ -10,7 +10,6 @@ gt_theme(
   spanner_split = NA,
   title = NULL,
   title_block_color = "#ee1c25",
-  missing_text = "",
   ...
 )
 }
@@ -34,6 +33,6 @@ x <- data.table::data.table(
   "Price_ROL" = c(.4, .35, NA)
   )
 gt(x)
-gt(x) |> gt_theme(title = "Price Table", title_block_color = "blue")
 gt(x) |> gt_theme(spanner_split = "_", theme = "green", title = "Price Table") |> gt::fmt_number(2:3, suffixing = TRUE)
+gt(x) |> gt_theme(title = "Price Table", title_block_color = "blue") |> gt_split(2)
 }

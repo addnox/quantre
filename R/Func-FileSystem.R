@@ -49,7 +49,13 @@ fs_common_dir <- function(path = NULL, flavor = c("op", "gc"), create_project = 
     )
   }
 
-  lapply(dir_str, dir.create, path = path)
+  Map(
+    function(base_dir, sub_dir) {
+      dir.create(file.path(base_dir, sub_dir), recursive = TRUE)
+      cat("./", sub_dir, "\n", sep = "")
+    },
+    base_dir = path, sub_dir = dir_str
+  )
 
   if (create_project) {
     rstudioapi::openProject(path, newSession = TRUE)

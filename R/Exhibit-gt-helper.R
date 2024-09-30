@@ -15,10 +15,10 @@
 #'   "Price_ROL" = c(.4, .35, NA)
 #'   )
 #' gt(x)
-#' gt(x) |> gt_theme(title = "Price Table", title_block_color = "blue")
 #' gt(x) |> gt_theme(spanner_split = "_", theme = "green", title = "Price Table") |> gt::fmt_number(2:3, suffixing = TRUE)
+#' gt(x) |> gt_theme(title = "Price Table", title_block_color = "blue") |> gt_split(2)
 
-gt_theme <- function(data, theme = c("blue", "blue.fill", "green", "green.fill"), spanner_split = NA, title = NULL, title_block_color = "#ee1c25", missing_text = "",...) {
+gt_theme <- function(data, theme = c("blue", "blue.fill", "green", "green.fill"), spanner_split = NA, title = NULL, title_block_color = "#ee1c25",...) {
   if (!inherits(data, "gt_tbl")) stop("`data` must be a `gt_tbl` object.", call. = FALSE)
 
   theme <- match.arg(theme)
@@ -26,7 +26,6 @@ gt_theme <- function(data, theme = c("blue", "blue.fill", "green", "green.fill")
   .theme_style <- ifelse(grepl("fill$", theme), 6, 1)
 
   gt0 <- data |>
-    gt::sub_missing(missing_text = missing_text) |>
     gt::opt_stylize(style = .theme_style, color = .theme_color, add_row_striping = TRUE)
 
   # add spanner (i.e. column groups)
@@ -58,7 +57,21 @@ gt_theme <- function(data, theme = c("blue", "blue.fill", "green", "green.fill")
 }
 
 #' @export
-gt_save <- function(gt, file, vwidth = 1000, vheight = 800, expand = 10, trim = FALSE, ...) {
+gt_save <- function(x, file, vwidth = 1000, vheight = 800, expand = 10, trim = FALSE, ...) {
+  if (inherits(x, "gt_tbl")) {
+    gt_save_(x, file, vwidth = vwidth, vheight = vheight, expand = expand, trim = trim, ...)
+  } else if (inherits(x, "gt_group")) {
+    for (i in 1:nrow(x$gt_tbls)) {
+      tmp_gt <- gt::grp_pull(x, i)
+      tmp_file <- gsub(".png", paste0("_", i, ".png"), file, fixed = TRUE)
+      gt_save_(tmp_gt, tmp_file, vwidth = vwidth, vheight = vheight, expand = expand, trim = trim, ...)
+    }
+  } else {
+    stop("`x` must be a `gt_tbl` or a `gt_group`.", call. = FALSE)
+  }
+}
+
+gt_save_ <- function(gt, file, vwidth = 1000, vheight = 800, expand = 10, trim = FALSE, ...) {
   gt::gtsave(gt, file, vwidth = vwidth, vheight = vheight, expand = expand, ...)
 
   if (trim & requireNamespace("magick", quietly = TRUE)) {

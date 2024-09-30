@@ -46,7 +46,7 @@ stri_date_parse <- function(x) {
 #' @examples
 #' x <- "This string is moderately long"
 #' rbind(
-#'   stri_trunc(x, 20, "right"),
+#'   stri_trunc(x, 80, "right"),
 #'   stri_trunc(x, 20, "left"),
 #'   stri_trunc(x, 20, "center")
 #' )
